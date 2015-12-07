@@ -8,7 +8,12 @@
 docker pull optiflows/js-toolset
 ```
 
-## Tools available
+## Permissions
+
+The user `devuser` has sudoer permissions. Its `$HOME` path is `/home/devuser`.
+A Docker environment variable `WORKSPACE` point to this very folder, and it shall be used to store your app sources.
+
+## Embedded tools
 
 * node
 * npm
