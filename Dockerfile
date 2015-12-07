@@ -1,19 +1,20 @@
-FROM alpine:latest
+FROM alpine:3.2
 
 COPY settings/repositories /etc/apk/repositories
 # Installing build tools, chromium and an X server
 RUN apk --update add \
-  bash \
-  tar \
-  git \
-  dpkg \
-  python \
-  make \
-  g++ \
-  openssh-client \
-  xvfb \
-  chromium \
-  nodejs
+    bash \
+    vim \
+    tar \
+    git \
+    dpkg \
+    python \
+    make \
+    g++ \
+    openssh-client \
+    xvfb \
+    chromium \
+    nodejs
 
 # Patching the launch command to goes through xvfb
 COPY settings/xvfb-chromium.sh /usr/bin/xvfb-chromium
