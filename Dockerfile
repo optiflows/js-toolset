@@ -1,6 +1,7 @@
 FROM alpine:3.2
 
 ENV WORKSPACE /home/devuser
+ENV CHROME_BIN /usr/bin/xvfb-chromium
 
 COPY settings/repositories /etc/apk/repositories
 # Installing build tools, chromium and an X server
@@ -16,13 +17,14 @@ RUN apk --update add \
     openssh-client \
     xvfb \
     chromium \
+    libexif \
+    udev \
     nodejs
 
 # Patching the launch command to goes through xvfb
 COPY settings/xvfb-chromium.sh /usr/bin/xvfb-chromium
 RUN chmod 755 /usr/bin/xvfb-chromium
-RUN ln -fs /usr/bin/xvfb-chromium /usr/bin/google-chrome
-RUN ln -fs /usr/bin/xvfb-chromium /usr/bin/chromium-browser
+RUN ln -fs /usr/bin/chromium-browser /usr/bin/chromium
 
 RUN addgroup staff
 RUN adduser -D -g "" -G staff -s /bin/bash devuser
