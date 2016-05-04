@@ -2,6 +2,8 @@ FROM alpine:3.3
 
 ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
+ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
+ENV SASS_BINARY_PATH=/usr/lib/node_modules/node-sass/vendor/linux-x64-46/binding.node
 
 COPY settings/repositories /etc/apk/repositories
 # Installing build tools, chromium and an X server
@@ -36,6 +38,7 @@ RUN chown -R devuser:staff ${WORKSPACE}
 RUN npm install -g bower
 RUN npm install -g gulp
 RUN npm install -g yo
+RUN npm install -g node-sass
 
 USER devuser
 WORKDIR ${WORKSPACE}
