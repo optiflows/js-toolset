@@ -21,3 +21,4 @@ A Docker environment variable `WORKSPACE` point to this very folder, and it shal
 * gulp
 * yo
 * chromium (through xvfb)
+* sass
