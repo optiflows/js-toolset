@@ -42,3 +42,6 @@ RUN npm install -g node-sass
 
 USER devuser
 WORKDIR ${WORKSPACE}
+
+# Installing Yarn
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
