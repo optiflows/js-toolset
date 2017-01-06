@@ -4,6 +4,7 @@ ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
 ENV SKIP_SASS_BINARY_DOWNLOAD_FOR_CI true
 ENV SASS_BINARY_PATH=/usr/lib/node_modules/node-sass/vendor/linux-x64-46/binding.node
+ENV PATH $PATH:/home/devuser/.yarn/bin
 
 COPY settings/repositories /etc/apk/repositories
 # Installing build tools, chromium and an X server

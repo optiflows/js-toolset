@@ -17,6 +17,7 @@ A Docker environment variable `WORKSPACE` point to this very folder, and it shal
 
 * node
 * npm
+* yarn
 * bower
 * gulp
 * yo
