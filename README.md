@@ -1,25 +1,16 @@
 # js-toolset
 
-[![Docker Hub](https://img.shields.io/docker/pulls/surycat/js-toolset.svg)](https://hub.docker.com/r/surycat/js-toolset)
-
 [Alpine](https://hub.docker.com/_/alpine/) based container that provides useful tools when writing JS applications.
 
 ```bash
-docker pull optiflows/js-toolset
+docker pull surycat/js-toolset
 ```
-
-## Permissions
-
-The user `devuser` has sudoer permissions. Its `$HOME` path is `/home/devuser`.
-A Docker environment variable `WORKSPACE` point to this very folder, and it shall be used to store your app sources.
 
 ## Embedded tools
 
-* node
-* npm
-* yarn
-* bower
-* gulp
-* yo
-* chromium (through xvfb)
-* sass
+* **node** 6.9.2
+* **npm** 3.10.9
+* **yarn** 0.18.1
+* **bower** 1.8.0
+* **gulp** 3.9.1
+* **sass** 4.2.0
