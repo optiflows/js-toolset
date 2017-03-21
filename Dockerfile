@@ -22,7 +22,8 @@ RUN apk --update add \
     chromium \
     libexif \
     udev \
-    nodejs
+    nodejs \
+    jq
 
 # Patching the launch command to goes through xvfb
 COPY settings/xvfb-chromium.sh /usr/bin/xvfb-chromium
