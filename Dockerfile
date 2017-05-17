@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.5
 
 ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
