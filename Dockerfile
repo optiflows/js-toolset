@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
@@ -23,6 +23,7 @@ RUN apk --update add \
     libexif \
     udev \
     nodejs \
+    nodejs-npm \
     jq \
     curl
 
@@ -40,7 +41,6 @@ RUN chown -R devuser:staff ${WORKSPACE}
 # Installing the JS toolchain
 RUN npm install -g bower
 RUN npm install -g gulp
-RUN npm install -g yo
 RUN npm install -g node-sass
 
 USER devuser
