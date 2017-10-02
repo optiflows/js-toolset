@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.5
 
 ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
@@ -21,7 +21,6 @@ RUN apk --update add \
     libexif \
     udev \
     nodejs \
-    nodejs-npm \
     jq \
     curl
 
