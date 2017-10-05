@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 ENV WORKSPACE /home/devuser
 ENV CHROME_BIN /usr/bin/xvfb-chromium
@@ -21,8 +21,10 @@ RUN apk --update add \
     libexif \
     udev \
     nodejs \
+    nodejs-npm \
     jq \
-    curl
+    curl \
+    yarn
 
 # Patching the launch command to goes through xvfb
 COPY settings/xvfb-chromium.sh /usr/bin/xvfb-chromium
@@ -42,6 +44,3 @@ RUN npm install -g node-sass
 
 USER devuser
 WORKDIR ${WORKSPACE}
-
-# Installing Yarn
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
