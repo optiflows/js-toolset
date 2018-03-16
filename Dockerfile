@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.7
 
 ENV WORKSPACE /home/devuser
 ENV PATH $PATH:/home/devuser/.yarn/bin
@@ -25,7 +25,8 @@ RUN chown -R devuser:staff ${WORKSPACE}
 # Installing the JS toolchain
 RUN npm install -g bower
 RUN npm install -g gulp
-RUN npm install -g node-sass
+# Use `--unsafe-perm` to fix permission access: https://github.com/npm/npm/issues/17851
+RUN npm install --unsafe-perm -g node-sass
 
 USER devuser
 WORKDIR ${WORKSPACE}
