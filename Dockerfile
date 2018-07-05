@@ -1,7 +1,6 @@
 FROM alpine:3.7
 
 ENV WORKSPACE /home/devuser
-ENV PATH $PATH:/home/devuser/.yarn/bin
 
 COPY settings/repositories /etc/apk/repositories
 # Installing build tools
@@ -12,8 +11,7 @@ RUN apk --update add \
     nodejs \
     nodejs-npm \
     jq \
-    curl \
-    yarn
+    curl
 
 
 RUN addgroup staff
@@ -23,10 +21,7 @@ RUN touch ${WORKSPACE}/.bashrc
 RUN chown -R devuser:staff ${WORKSPACE}
 
 # Installing the JS toolchain
-RUN npm install -g bower
-RUN npm install -g gulp
-# Use `--unsafe-perm` to fix permission access: https://github.com/npm/npm/issues/17851
-RUN npm install --unsafe-perm -g node-sass
+RUN npm install -g @angular/cli
 
 USER devuser
 WORKDIR ${WORKSPACE}
