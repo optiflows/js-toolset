@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.8
 
 ENV WORKSPACE /home/devuser
 
@@ -9,7 +9,7 @@ RUN apk --update add \
     tar \
     git \
     nodejs \
-    nodejs-npm \
+    npm \
     jq \
     curl
 
