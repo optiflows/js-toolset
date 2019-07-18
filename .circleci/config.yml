@@ -1,0 +1,97 @@
+defaults: &defaults
+  docker:
+    - image: circleci/golang
+  environment:
+    - CONTAINER: 'surycat/js-toolset'
+
+docker-login: &docker-login
+  run:
+    name: Docker login
+    command: docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+version: 2
+jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: docker build -t $CONTAINER:latest .
+      - run:
+          name: Save Docker image
+          command: |
+            mkdir -p /tmp/docker-images
+            docker save -o /tmp/docker-images/js-toolset.tar $CONTAINER:latest
+      - persist_to_workspace:
+          root: /tmp/docker-images
+          paths: js-toolset.tar
+
+  push-hub-stable:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - <<: *docker-login
+      - run:
+          name: Load Docker image
+          command: |
+            set +o pipefail
+            docker load -i js-toolset.tar | true
+      - run:
+          name: Push latest stable image
+          command: docker push $CONTAINER:latest
+      - run:
+          name: Push stable image tag
+          command: |
+            docker tag $CONTAINER:latest $CONTAINER:$CIRCLE_TAG
+            docker push $CONTAINER:$CIRCLE_TAG
+
+  push-hub-head:
+    <<: *defaults
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - <<: *docker-login
+      - run:
+          name: Load Docker image layer cache
+          command: |
+            set +o pipefail
+            docker load -i js-toolset.tar | true
+      - run:
+          name: Push head image
+          command: |
+            docker tag $CONTAINER:latest $CONTAINER:head
+            docker push $CONTAINER:head
+
+workflows:
+  version: 2
+  build-deploy:
+    jobs:
+      - build:
+          filters:
+            tags:
+              only: /.*/
+
+      - push-hub-stable:
+          context: docker-creds
+          requires:
+            - build
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^\d+(?:\.\d+){2}-r\d+$/
+
+      - push-hub-head:
+          context: docker-creds
+          requires:
+            - build
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /.*/
