@@ -6,7 +6,7 @@
 [Alpine](https://hub.docker.com/_/alpine/) based container that provides useful tools when writing JS applications.
 
 ```bash
-docker pull optiflows/js-toolset
+docker pull surycat/js-toolset
 ```
 
 ## Permissions
