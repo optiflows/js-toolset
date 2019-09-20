@@ -1,26 +1,9 @@
-FROM alpine:3.10
+FROM node:alpine
 
-ENV WORKSPACE /home/devuser
+EXPOSE 4200
+WORKDIR /home
 
-# Installing build tools
-RUN apk --update add \
-    bash \
-    tar \
-    git \
-    nodejs \
-    npm \
-    jq \
-    curl
+ONBUILD COPY ./ /home
+ONBUILD RUN npm i --cache /tmp/empty-cache && rm -rf /tmp/empty-cache
 
-
-RUN addgroup staff
-RUN adduser -D -g "" -G staff -s /bin/bash devuser
-RUN echo "devuser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-RUN touch ${WORKSPACE}/.bashrc
-RUN chown -R devuser:staff ${WORKSPACE}
-
-# Installing the JS toolchain
-RUN npm install -g @angular/cli
-
-USER devuser
-WORKDIR ${WORKSPACE}
+ENTRYPOINT ["npm", "start"]
